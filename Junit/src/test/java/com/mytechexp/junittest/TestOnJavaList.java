@@ -66,4 +66,17 @@ public class TestOnJavaList {
         assertEquals("test",captor.getValue());
     }
 
+    @Test
+    public void multipleArgumentCaptureTest()
+    {
+        list.add("test");
+        list.add("test2");
+        ArgumentCaptor<String> captor=ArgumentCaptor.forClass(String.class);
+        verify(list,atLeastOnce()).add(captor.capture());
+        List<String> capturedList=captor.getAllValues();
+        assertEquals("test",capturedList.get(0));
+        assertEquals("test2",capturedList.get(1));
+
+    }
+
 }
